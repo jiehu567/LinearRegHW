@@ -1,0 +1,49 @@
+---
+title: "HW2_linearReg"
+author: "Jie Hu"
+date: "April 19, 2016"
+output: html_document
+---
+
+#### 2.1
+
+a. the conclusion is not warranted, because CL involves slope equals to 0 which means X and Y has no relationship. The implied significance level is 0.95
+b. intercept can be negative. The valid range of X might not allow Y to be negative but the regression line can have negative intercept.
+
+#### 2.2
+No, we can only say there’s no convincing evidence that there’s relationship between X and Y.
+
+#### 2.6
+```{r}
+X <- c(1,0,2,0,3,1,0,1,2,0)
+Y <- c(16,9,17,12,22,13,8,15,19,11)
+
+df <- data.frame(X,Y)
+model_6 <- lm(Y~X, data = df)
+
+# Confidence Interval for slope and intercept
+confint(model_6, level = 0.99)
+
+
+# Plot model and confidence interval
+newdata <- data.frame(X = seq(1, 3, 0.05))
+predict(lm(Y ~ X), interval = "confidence")
+
+pred.w.plim <- predict(lm(Y ~ X), newdata, interval = "prediction")
+pred.w.clim <- predict(lm(Y ~ X), newdata, interval = "confidence")
+matplot(newdata$X, cbind(pred.w.clim, pred.w.plim[,-1]),
+        lty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
+```
+
+b.
+```{r}
+# Estimators
+summary(model_6)
+```
+
+$$H_0: \beta_1 = 0$$
+$$H_A: \beta_1 \ne 0$$
+
+test for code `summary(cars)`
+
+
