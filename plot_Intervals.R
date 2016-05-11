@@ -1,5 +1,7 @@
 # Plot Confidence Interval for any linear model
 
+# Plot Confidence Interval for any linear model
+
 plotCI <- function(model_name,       
                    plotCI = TRUE, 
                    plotHI = FALSE, 
@@ -18,7 +20,7 @@ plotCI <- function(model_name,
   prd_HI <- predict(model_name, newdata = newdata, interval = "predict", type = "response")
   
   W <- sqrt(2*qf(1-0.05, 2, 524))
-  ci <- predict(model1, new_hour, se.fit = TRUE)
+  ci <- predict(model, newdata, se.fit = TRUE)
   lwr <- ci$fit -W* ci$se.fit
   upr <- ci$fit +W* ci$se.fit
   cbind(ci$fit, lwr, upr)
@@ -55,3 +57,4 @@ X <- sample(12:150, size = 100, replace = FALSE)
 Y <- X * 8 + rnorm(length(X), 0, 300)
 model2 <- lm(Y~X)
 plotCI(model2,plotHI = T)
+
